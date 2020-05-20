@@ -1,5 +1,6 @@
 const uniqid = require('uniqid');
 const User = require('../features/User');
+const { updateFinnConnection } = require('../stockRequests/stockRequests');
 
 const updateAndSendStocksInterval = (stocks, users) => {
   setInterval(() => {
@@ -9,29 +10,35 @@ const updateAndSendStocksInterval = (stocks, users) => {
       payload.push(stock.toObject());
     });
 
-    users.forEach((user, id) => {
+    users.userList.forEach((user, id) => {
       user.connection.send(JSON.stringify(payload));
     });
   }, 1000);
 };
 
-const manageStockServer = (wss, stocks) => {
-  const users = new Map();
+const manageStockServer = (wss, stocks, users) => {
   updateAndSendStocksInterval(stocks, users);
 
   wss.on('connection', ws => {
     //initializing the new user
     const user = User.fromConnection(uniqid(), ws);
-    users.set(user.id, user);
-    console.log('new connection', user.id);
+    users.addUser(user);
+    console.log('new connection', user.id, users.userList.size);
+
+    // managing connection to finnhub socket
+    updateFinnConnection(users, stocks);
 
     ws.on('message', message => {
       console.log('received: %s', message);
     });
 
     ws.on('close', () => {
-      console.log('removing user', user.id);
-      users.delete(user.id);
+      users.deleteUser(user);
+
+      console.log('removing user', user.id, users.userList.size);
+
+      // managing connection to finnhub socket
+      updateFinnConnection(users, stocks);
     });
   });
 };

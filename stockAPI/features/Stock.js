@@ -4,10 +4,10 @@ class Stock {
     this.recentPrice = null;
     this.pricesForClient = [[0], [0]];
     this.APIKey = APIKey;
+    this.connection = null;
   }
 
   static fromSymbol(symbol, APIKey) {
-    console.log(symbol, APIKey);
     return new Stock(symbol, APIKey);
   }
 
