@@ -1,5 +1,5 @@
-const startWikiAPI = require('./wikiApi/wikiAPI');
-const startStockAPI = require('./stockAPI/stockAPI');
+const startWikiAPI = require('./backend_app/wikiApi/wikiAPI');
+const startStockAPI = require('./backend_app/stockAPI/stockAPI');
 
 startWikiAPI();
 startStockAPI();
