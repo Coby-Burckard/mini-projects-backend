@@ -4,8 +4,8 @@
   "description": "A backend to serve nasa images, scraped wiki, and websockets to the frontend",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
+    "dev": "nodemon backend_app/index.js",
+    "start": "node backend_app/index.js",
     "test": "test"
   },
   "author": "Coby Burckard",

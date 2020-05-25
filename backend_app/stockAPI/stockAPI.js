@@ -7,7 +7,7 @@ const UserList = require('./features/UserList');
 // const APIparams = require('./constants/APIConstants');
 const { manageStockServer } = require('./stockServer/stockServer');
 
-const startStockAPI = () => {
+const startStockAPI = (app, PORT) => {
   //initializing API data storage
   const users = new UserList();
   const production = true;
@@ -27,10 +27,11 @@ const startStockAPI = () => {
   );
 
   // itializing server for client connections
-  const server = http.createServer();
+  const server = http.createServer(app);
   const wss = new WebSocket.Server({ server });
   manageStockServer(wss, stocks, users);
-  server.listen(8080);
+  console.log('stock api listening on port ', PORT);
+  server.listen(PORT);
 };
 
 module.exports = startStockAPI;

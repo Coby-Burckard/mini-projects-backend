@@ -1,13 +1,9 @@
-const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const router = require('./routes/miniProjectsRoutes');
 const { logAll } = require('./middleware/middleware');
 
-const startWikiAPI = () => {
-  const app = express();
-  const port = process.env.PORT || 4000;
-
+const startWikiAPI = (app, port) => {
   //setting up custom middleware
   app.use(logAll);
 
@@ -20,8 +16,6 @@ const startWikiAPI = () => {
 
   //registering the routes
   router(app);
-
-  app.listen(port);
 
   console.log('wikiAPI listening on port: ' + port);
 };
