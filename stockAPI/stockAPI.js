@@ -10,7 +10,7 @@ const { manageStockServer } = require('./stockServer/stockServer');
 const startStockAPI = () => {
   //initializing API data storage
   const users = new UserList();
-  const production = false;
+  const production = true;
   let stocks;
 
   if (production) {
