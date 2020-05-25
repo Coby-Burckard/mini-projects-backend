@@ -11,18 +11,20 @@ const startStockAPI = () => {
   //initializing API data storage
   const users = new UserList();
   const production = true;
-  let stocks;
+  let stockParams;
 
   if (production) {
-    stocks = {
-      AAPL: process.env.STOCK_ONE,
-      AMZN: process.env.STOCK_TWO,
-    };
+    stockParams = [
+      { symbol: 'AAPL', APIKey: process.env.STOCK_ONE },
+      { symbol: 'AMZN', APIKey: process.env.STOCK_TWO },
+    ];
   } else {
-    stocks = APIparams.map(({ symbol, APIKey }) =>
-      Stock.fromSymbol(symbol, APIKey)
-    );
+    stockParams = APIparams;
   }
+
+  stocks = stockParams.map(({ symbol, APIKey }) =>
+    Stock.fromSymbol(symbol, APIKey)
+  );
 
   // itializing server for client connections
   const server = http.createServer();
