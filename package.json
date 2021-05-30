@@ -19,7 +19,7 @@
     "osmosis": "^1.1.10",
     "uniqid": "^5.2.0",
     "websocket": "^1.0.31",
-    "ws": "^7.3.0"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
